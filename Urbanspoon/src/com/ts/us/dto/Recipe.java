@@ -68,4 +68,11 @@ public class Recipe {
 		this.image = image;
 	}
 
+	@Override
+	public String toString() {
+		return "Recipe [id=" + id + ", name=" + name + ", description=" + description + ", isVeg=" + isVeg + ", price="
+				+ price + ", image=" + image + ", feedbackList=" + feedbackList + "]";
+	}
+
+	
 }

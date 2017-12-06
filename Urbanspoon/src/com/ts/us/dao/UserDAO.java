@@ -48,7 +48,7 @@ public class UserDAO {
 				user.setGender(resultSet.getString(3));
 				user.setEmail(resultSet.getString(4));
 				user.setPassword(resultSet.getString(5));
-				user.setMobileNumber(resultSet.getLong(5));
+				user.setMobileNumber(resultSet.getLong(6));
 			}
 		} catch (SQLException e) {
 			throw new UrbanspoonException(e.toString());
@@ -74,7 +74,7 @@ public class UserDAO {
 				user.setGender(resultSet.getString(3));
 				user.setEmail(resultSet.getString(4));
 				user.setPassword(resultSet.getString(5));
-				user.setMobileNumber(resultSet.getLong(5));
+				user.setMobileNumber(resultSet.getLong(6));
 			}
 		} catch (SQLException e) {
 			throw new UrbanspoonException(e.toString());

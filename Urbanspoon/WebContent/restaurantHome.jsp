@@ -37,10 +37,10 @@
 	<form action="UrbanspoonController" method="post">
 
 		<input type="hidden" name="action" value="recipe"> <label>Name</label>
-		<input type="text" name="name"><br> <label>Description</label>
+		<input type="text" name="recipe_name"><br> <label>Description</label>
 		<input type="text" name="description"><br> <label>Type</label>
-		<input type="radio" name="type" value="Veg"> Veg <input
-			type="radio" name="type" value="Non-Veg"> Non-Veg<br> <label>Cuisine</label>
+		<input type="radio" name="recipe_type" value="Veg"> Veg <input
+			type="radio" name="recipe_type" value="Non-Veg"> Non-Veg<br> <label>Cuisine</label>
 		<select name="cuisine_id">
 			<c:forEach items="${cuisineList}" var="cuisine">
 				<option value="${cuisine.id}">${cuisine.name}</option>
@@ -58,16 +58,12 @@
 			<c:forEach items="${branchList}" var="branch">
 				<option value="${branch.id}">${branch.location}</option>
 			</c:forEach>
-		</select><br> <label>Recipe</label> <select name="recipei_id">
-			<c:forEach items="${branchList}" var="branch">
-				<c:forEach items="${branch.cuisinesList}" var="cuisine">
-					<c:forEach items="${cuisine.recipesList}" var="recipe">
-						<option value="${recipe.id}">${recipe.name}</option>
-					</c:forEach>
-				</c:forEach>
+		</select><br> <label>Recipe</label> <select name="recipe_id">
+			<c:forEach items="${ recipeList}" var="recipe">
+				<option value="${recipe.id}">${recipe.name}</option>
 			</c:forEach>
 		</select><br> <label>Price</label> <input type="number" name="price"><br>
-		<label>ImagePath</label> <input type="file"><br> <input
+		<label>ImagePath</label> <input type="file" name="recipe_image"><br> <input
 			type="submit" value="ADD RECIPE TO BARNCH">
 
 	</form>

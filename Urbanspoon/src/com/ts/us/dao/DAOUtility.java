@@ -14,7 +14,7 @@ public class DAOUtility {
 	
 	private static final String INVALID_ARGUMENT_EXCEPTION = "Invalid Argument to close() method of class DAOUtility !!!";
 	private static final String URL = "jdbc:mysql://localhost:3306/";
-	private static final String DATABASE_NAME = "urbanspoon";
+	private static final String DATABASE_NAME = "Urbanspoon";
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "root";
 	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";

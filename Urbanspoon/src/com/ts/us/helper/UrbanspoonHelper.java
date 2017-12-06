@@ -31,7 +31,10 @@ import com.ts.us.exception.UrbanspoonException;
 import com.ts.us.util.DateUtility;
 
 public class UrbanspoonHelper {
-	private static final String IMAGESLOCATION = "D:\\Trainer Champion\\Urbanspoon\\Workspace\\Urbanspoon\\WebContent\\images";
+	//Mac Path
+	private static final String IMAGESLOCATION = "//Users//suveen//Documents//EclipseWorkspace//Restaurant-Ratings//Urbanspoon//WebContent//images";
+	// Linux Path
+	//private static final String IMAGESLOCATION = "//Users//suveen//Documents//EclipseWorkspace//Restaurant-Ratings//Urbanspoon//WebContent//images";
 
 	public static long getLoggedUserId(HttpServletRequest request) {
 		HttpSession httpSession = request.getSession(true);
@@ -68,6 +71,9 @@ public class UrbanspoonHelper {
 
 	public static Recipe getRecipe(int recipeId) throws UrbanspoonException {
 		return new RecipeDAO().getRecipe(recipeId);
+	}
+	public static List<Recipe> getRecipes() throws UrbanspoonException {
+		return new RecipeDAO().getRecipes();
 	}
 
 	public static List<FileItem> getFileItems(HttpServletRequest request) throws UrbanspoonException {
@@ -166,10 +172,8 @@ public class UrbanspoonHelper {
 		float price = 0;
 		String imagePath = null;
 		for (FileItem fileItem : fileItemsList) {
-			if (!fileItem.isFormField()) {
-				storeImage(fileItem, "recipe", branchId + "_" + recipeId + ".jpg");
-				imagePath = branchId + "_" + recipeId + ".jpg";
-			} else {
+			if (fileItem.isFormField()) {
+				//System.out.println(fileItem);
 				if (fileItem.getFieldName().equals("recipe_id")) {
 					recipeId = Long.parseLong(fileItem.getString());
 				}
@@ -179,8 +183,18 @@ public class UrbanspoonHelper {
 				if (fileItem.getFieldName().equals("price")) {
 					price = Float.parseFloat(fileItem.getString());
 				}
+				//System.out.println("RecipeId : "+recipeId+" Branch Id "+branchId+" Price "+price);
 			}
 		}
+		for (FileItem fileItem : fileItemsList) {
+			if (!fileItem.isFormField()) {
+				imagePath = branchId + "_" + recipeId + ".jpg";
+				storeImage(fileItem, "recipes", imagePath);
+				
+			
+			}
+		}
+		
 		RecipeDAO recipeDAO = new RecipeDAO();
 		if (recipeDAO.addRecipeToBranch(recipeId, branchId, price, imagePath)) {
 			return true;
@@ -268,8 +282,10 @@ public class UrbanspoonHelper {
 		recipe.setName(request.getParameter("recipe_name"));
 		recipe.setDescription(request.getParameter("description"));
 		String recipeType = request.getParameter("recipe_type");
-		if (recipeType.equals("veg")) {
+		if (recipeType.equals("Veg")) {
 			recipe.setVeg(true);
+		} else {
+			recipe.setVeg(false);
 		}
 		int cuisineId = Integer.parseInt(request.getParameter("cuisine_id"));
 		RecipeDAO recipeDAO = new RecipeDAO();
@@ -296,7 +312,7 @@ public class UrbanspoonHelper {
 	public static boolean storeImage(FileItem fileItem, String imageType, String fileName) throws UrbanspoonException {
 		if (null != fileItem) {
 			try {
-				String filePath = IMAGESLOCATION + "\\" + imageType + "\\" + fileName;
+				String filePath = IMAGESLOCATION + "//" + imageType + "//" + fileName;
 				fileItem.write(new File(filePath));
 				return true;
 			} catch (Exception e) {

@@ -121,6 +121,7 @@ public class UrbanspoonController extends HttpServlet {
 						if (UrbanspoonHelper.loginAsRestaurantOwner(request, response)) {
 							request.setAttribute("cuisineList", UrbanspoonHelper.getCuisine(false));
 							request.setAttribute("branchList", UrbanspoonHelper.getBranches(request, true));
+							request.setAttribute("recipeList", UrbanspoonHelper.getRecipes());
 							request.getRequestDispatcher("restaurantHome.jsp").forward(request, response);
 						}
 					}

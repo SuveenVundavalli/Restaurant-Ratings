@@ -23,6 +23,7 @@ public class RecipeDAO {
 			preparedStatement.setString(1, recipe.getName());
 			preparedStatement.setString(2, recipe.getDescription());
 			preparedStatement.setInt(3, cuisineId);
+			System.out.println(recipe.isVeg());
 			preparedStatement.setBoolean(4, recipe.isVeg());
 			preparedStatement.executeUpdate();
 
@@ -164,8 +165,26 @@ public class RecipeDAO {
 		return recipesList;
 	}
 
-	public boolean addRecipeToBranch(long recipeId, long branchId, float price, String imagePath) {
-		return false;
+	public boolean addRecipeToBranch(long recipeId, long branchId, float price, String imagePath)
+			throws UrbanspoonException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = DAOUtility.getConnection();
+			preparedStatement = connection.prepareStatement("insert into serve values(?,?,?,?)");
+			preparedStatement.setLong(1, branchId);
+			preparedStatement.setLong(2, recipeId);
+			preparedStatement.setFloat(3, price);
+			preparedStatement.setString(4, imagePath);
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			throw new UrbanspoonException(e.toString());
+		} finally {
+			DAOUtility.close(preparedStatement, connection);
+		}
+		return true;
+
 	}
 
 }
