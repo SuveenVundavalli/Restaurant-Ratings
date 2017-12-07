@@ -32,9 +32,9 @@ import com.ts.us.util.DateUtility;
 
 public class UrbanspoonHelper {
 	//Mac Path
-	private static final String IMAGESLOCATION = "//Users//suveen//Documents//EclipseWorkspace//Restaurant-Ratings//Urbanspoon//WebContent//images";
-	// Linux Path
 	//private static final String IMAGESLOCATION = "//Users//suveen//Documents//EclipseWorkspace//Restaurant-Ratings//Urbanspoon//WebContent//images";
+	// Linux Path
+	private static final String IMAGESLOCATION = "//home//tsuser//Desktop//TalentSprint-Project-Suveen//Restaurant-Ratings//Urbanspoon//WebContent//images";
 
 	public static long getLoggedUserId(HttpServletRequest request) {
 		HttpSession httpSession = request.getSession(true);
