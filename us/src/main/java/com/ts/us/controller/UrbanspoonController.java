@@ -83,9 +83,7 @@ public class UrbanspoonController {
 				session.setAttribute("loggedInUser", restaurant);
 				session.setAttribute("loggedInUserId", restaurant.getId());
 				mv = new ModelAndView("restaurantHome");
-				mv.addObject("cuisineList", new CuisineDAO().getCuisines(false));
-				mv.addObject("branchList", new BranchDAO().getBranches(restaurant.getId(), true, true));
-				mv.addObject("recipeList", new RecipeDAO().getRecipes());
+				mv = addRestaurantObjects(mv, request);
 			}
 		} else {
 			mv = new ModelAndView("home");
@@ -154,6 +152,7 @@ public class UrbanspoonController {
 	}
 
 	// FeedBacks
+	//Loading branch feedback form
 	@RequestMapping("/branch_feedback")
 	public ModelAndView addBranchFeedback(@RequestParam("branch_id") int branchId,
 			@RequestParam("restaurant_id") int restaurantId, HttpServletRequest request) {
@@ -191,6 +190,7 @@ public class UrbanspoonController {
 		return mv;
 	}
 
+	//Submitting branch feedback
 	@RequestMapping(value = "/add_branch_feedback", method = RequestMethod.POST)
 	public ModelAndView addNewBranchFeedback(@RequestParam Map<String, String> requestParams,
 			HttpServletRequest request) throws UrbanspoonException {
@@ -215,7 +215,8 @@ public class UrbanspoonController {
 		mv.addObject("restaurantsList", new RestaurantDAO().getRestaurants(true));
 		return mv;
 	}
-
+	
+	//Loading Recipe feedback form
 	@RequestMapping("/recipe_feedback")
 	public ModelAndView addRecipeFeedback(@RequestParam("recipe_id") int recipeId,
 			@RequestParam("branch_id") int branchId, @RequestParam("restaurant_id") int restaurantId)
@@ -226,7 +227,8 @@ public class UrbanspoonController {
 		mv.addObject("recipe", new RecipeDAO().getRecipe(recipeId));
 		return mv;
 	}
-
+	
+	//Submitting recipe feedback
 	@PostMapping("/new_recipe_feedback")
 	public ModelAndView addNewRecipeFeedback(@RequestParam Map<String, String> reqParams, HttpServletRequest request)
 			throws UrbanspoonException {
@@ -253,6 +255,7 @@ public class UrbanspoonController {
 		return mv;
 	}
 	
+	//Restaurant Operations
 	@PostMapping("/branch")
 	public ModelAndView addBranch(HttpServletRequest request) throws UrbanspoonException {
 		List<FileItem> fileItemsList = UrbanspoonHelper.getFileItems(request);
@@ -290,12 +293,13 @@ public class UrbanspoonController {
 				}
 			}
 		}
-		return new ModelAndView("restaurantHome");
+		ModelAndView mv = new ModelAndView("restaurantHome");
+		mv = addRestaurantObjects(mv, request);
+		return mv;
 	}
 	
 	@PostMapping("/cuisine")
 	public ModelAndView addCuisine(@RequestParam("name") String name, @RequestParam("country") String country) throws UrbanspoonException {
-
 		Cuisine cuisine = new Cuisine();
 		cuisine.setName(name);
 		cuisine.setCountry(country);
@@ -320,9 +324,7 @@ public class UrbanspoonController {
 		RecipeDAO recipeDAO = new RecipeDAO();
 		recipe = recipeDAO.insert(cuisineId, recipe);
 		ModelAndView mv = new ModelAndView("restaurantHome");
-		mv.addObject("cuisineList", new CuisineDAO().getCuisines(false));
-		mv.addObject("branchList", new BranchDAO().getBranches(getLoggedUserId(request) , true, true));
-		mv.addObject("recipeList", new RecipeDAO().getRecipes());
+		mv = addRestaurantObjects(mv, request);
 		return mv;
 	}
 	
