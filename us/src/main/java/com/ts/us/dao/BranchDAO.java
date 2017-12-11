@@ -69,7 +69,7 @@ public class BranchDAO {
 			preparedStatement.setLong(1, restaurantId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				branchesList = new ArrayList<Branch>();
+				branchesList = new ArrayList<>();
 				do {
 					Branch branch = new Branch();
 					branch.setId(resultSet.getInt(1));
@@ -143,7 +143,7 @@ public class BranchDAO {
 			preparedStatement.setInt(1, branchId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				imagesList = new ArrayList<String>();
+				imagesList = new ArrayList<>();
 				do {
 					imagesList.add(resultSet.getString(1));
 				} while (resultSet.next());

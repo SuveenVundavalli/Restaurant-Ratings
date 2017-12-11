@@ -40,7 +40,7 @@ public class UrbanspoonHelper {
 		HttpSession httpSession = request.getSession(true);
 		Object object = httpSession.getAttribute("loggedUserId");
 		if (null != object)
-			return (Long) object;
+			return (long) object;
 		return -1;
 	}
 

@@ -29,7 +29,7 @@
 											<td>${branch.country}</td>
 											<td>${branch.postalCode}</td>
 											<td><a
-												href="UrbanspoonController?action=branch_feedback&restaurant_id=${restaurant.id}&branch_id=${branch.id}">Add
+												href="branch_feedback?restaurant_id=${restaurant.id}&branch_id=${branch.id}">Add
 													FeedBack</a></td>
 											<td>
 												<table border="1">
@@ -56,7 +56,7 @@
 																			<td>${recipe.description}</td>
 																			<td>${recipe.price}</td>
 																			<td><a
-																				href="UrbanspoonController?action=recipe_feedback&recipe_id=${recipe.id}&branch_id=${branch.id}&restaurant_id=${restaurant.id}">Add
+																				href="recipe_feedback?recipe_id=${recipe.id}&branch_id=${branch.id}&restaurant_id=${restaurant.id}">Add
 																					FeedBack</a></td>
 																		</tr>
 																	</c:forEach>
@@ -76,39 +76,42 @@
 					</c:forEach>
 				</table>
 			</div>
+			
 			<div id="branch_feedback">
 				<h3>Branch Feedback</h3>
-				<form name="branch_feedback_form" method="post"
-					action="UrbanspoonController">
+				 
+				<form name="branch_feedback_form" method="post" action="add_branch_feedback">
 					<input type="hidden" name="action" value="branch_feedback"><br>
 					Restaurant:
 					<h3>${restaurant.name}</h3>
 					<br> Branch:
 					<h3>${branch.location}</h3>
-					<input type="hidden" name="branch_id" value="${branch.id}">
-					<br> <label>Comments</label>
+					<input type="hidden" name="branch_id" value="${branch.id}"> <br>
+					<label>Comments</label>
 					<textarea rows="5" cols="5" name="comments"></textarea>
-					<br><label>rating</label> <select name="rating">
+					<br> <label>rating</label> <select name="rating">
 						<option value=1>1</option>
 						<option value=2>2</option>
 						<option value=3>3</option>
 						<option value=4>4</option>
 						<option value=5>5</option>
-					</select> <br>
-					<label>Visited Date</label><input type="date" name="visited_Date"><br>
-					<label>FeedbackType</label> <select name="feedback_type_id">
+					</select> <br> 
+					<label>Visited Date</label>
+					<input type="date" name="visited_Date"><br> 
+					<label>FeedbackType</label> 
+					<select name="feedback_type_id">
 						<c:forEach items="${feedbackTypeList}" var="feedbackType">
 							<option value="${feedbackType.id}">${feedbackType.description}</option>
 						</c:forEach>
-					</select><br> <input type="submit" value="submit">
+					</select><br> 
+					<input type="submit" value="submit">
 				</form>
 			</div>
-
+					
 
 			<div id="recipe_feedback">
 				<h3>Recipe Feedback</h3>
-				<form name="recipe_feedback_form" method="post"
-					action="UrbanspoonController">
+				<form name="recipe_feedback_form" method="post" action="new_recipe_feedback">
 					<input type="hidden" name="action" value="recipe_feedback"><br>
 					Restaurant:
 					<h3>${restaurant.name}</h3>

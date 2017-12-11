@@ -48,7 +48,7 @@ public class RecipeDAO {
 			preparedStatement = connection.prepareStatement("select * from recipe");
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				recipesList = new ArrayList<Recipe>();
+				recipesList = new ArrayList<>();
 				do {
 					Recipe recipe = new Recipe();
 					recipe.setId(resultSet.getInt(1));
@@ -81,7 +81,7 @@ public class RecipeDAO {
 			preparedStatement.setInt(1, cuisineId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				recipesList = new ArrayList<Recipe>();
+				recipesList = new ArrayList<>();
 				do {
 					Recipe recipe = new Recipe();
 					recipe.setId(resultSet.getInt(1));
@@ -143,7 +143,7 @@ public class RecipeDAO {
 			preparedStatement.setInt(2, branchId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				recipesList = new ArrayList<Recipe>();
+				recipesList = new ArrayList<>();
 				do {
 					Recipe recipe = new Recipe();
 					recipe.setId(resultSet.getInt(1));

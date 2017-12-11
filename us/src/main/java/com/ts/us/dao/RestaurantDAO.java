@@ -25,7 +25,7 @@ public class RestaurantDAO {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery("select * from restaurant");
 			if (resultSet.next()) {
-				restaurantsList = new ArrayList<Restaurant>();
+				restaurantsList = new ArrayList<>();
 				do {
 					Restaurant restaurant = new Restaurant();
 					restaurant.setId(resultSet.getInt(1));

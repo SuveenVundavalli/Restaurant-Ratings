@@ -117,9 +117,10 @@ public class UrbanspoonHelper {
 		restaurant = restaurantDAO.insert(restaurant);
 		if (restaurant.getId() != 0) {
 			for (FileItem fileItem : fileItemsList) {
-
-				storeImage(fileItem, "restaurants", restaurant.getId() + ".jpg");
-				restaurantDAO.updateLogoAddress(restaurant.getId(), restaurant.getId() + ".jpg");
+				if (!fileItem.isFormField()) {
+					storeImage(fileItem, "restaurants", restaurant.getId() + ".jpg");
+					restaurantDAO.updateLogoAddress(restaurant.getId(), restaurant.getId() + ".jpg");
+				}
 			}
 			return true;
 		}

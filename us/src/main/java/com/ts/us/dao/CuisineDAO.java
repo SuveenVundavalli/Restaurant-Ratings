@@ -70,7 +70,7 @@ public class CuisineDAO {
 			preparedStatement = connection.prepareStatement("select * from cuisine");
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				cuisinesList = new ArrayList<Cuisine>();
+				cuisinesList = new ArrayList<>();
 				do {
 					Cuisine cuisine = new Cuisine();
 					cuisine.setId(resultSet.getInt(1));
@@ -103,7 +103,7 @@ public class CuisineDAO {
 			preparedStatement.setInt(1, branchId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				cuisinesList = new ArrayList<Cuisine>();
+				cuisinesList = new ArrayList<>();
 				do {
 					Cuisine cuisine = new Cuisine();
 					cuisine.setId(resultSet.getInt(1));

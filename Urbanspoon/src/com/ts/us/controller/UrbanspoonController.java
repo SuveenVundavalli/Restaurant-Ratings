@@ -21,24 +21,9 @@ import com.ts.us.dto.Restaurant;
 import com.ts.us.exception.UrbanspoonException;
 import com.ts.us.helper.UrbanspoonHelper;
 
-/**
- * Servlet implementation class UrbanspoonController
- */
+
 @WebServlet("/UrbanspoonController")
 public class UrbanspoonController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public UrbanspoonController() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -72,10 +57,7 @@ public class UrbanspoonController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
