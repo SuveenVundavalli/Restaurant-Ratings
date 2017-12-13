@@ -1,14 +1,18 @@
-package com.ts.us.dao;
+package com.ts.us.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
+import com.ts.us.dao.IUserDAO;
 import com.ts.us.dto.User;
 import com.ts.us.exception.UrbanspoonException;
 
-public class UserDAO {
+@Component
+public class UserDAO implements IUserDAO{
 
 	public User insert(User user) throws UrbanspoonException {
 		Connection connection = DAOUtility.getConnection();

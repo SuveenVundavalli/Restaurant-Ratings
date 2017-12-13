@@ -42,4 +42,9 @@ public class Cuisine {
 		this.recipesList = recipesList;
 	}
 
+	@Override
+	public String toString() {
+		return "Cuisine [id=" + id + ", name=" + name + ", country=" + country + ", recipesList=" + recipesList + "]";
+	}
+
 }

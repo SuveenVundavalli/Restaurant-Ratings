@@ -1,4 +1,4 @@
-package com.ts.us.dao;
+package com.ts.us.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import com.ts.us.dao.IRestaurantDAO;
 import com.ts.us.dto.Restaurant;
 import com.ts.us.exception.UrbanspoonException;
 
-public class RestaurantDAO {
+@Component
+public class RestaurantDAO implements IRestaurantDAO{
 
 	public List<Restaurant> getRestaurants(boolean includeBranches) throws UrbanspoonException {
 

@@ -1,4 +1,4 @@
-package com.ts.us.dao;
+package com.ts.us.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import com.ts.us.dao.ICuisineDAO;
 import com.ts.us.dto.Cuisine;
 import com.ts.us.exception.UrbanspoonException;
 
-public class CuisineDAO {
+@Component
+public class CuisineDAO implements ICuisineDAO{
 
 	public Cuisine insert(Cuisine cuisine) throws UrbanspoonException {
 

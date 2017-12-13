@@ -1,4 +1,4 @@
-package com.ts.us.dao;
+package com.ts.us.daoimpl;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -8,8 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.stereotype.Component;
+
 import com.ts.us.exception.UrbanspoonException;
 
+@Component
 public class DAOUtility {
 	
 	private static final String INVALID_ARGUMENT_EXCEPTION = "Invalid Argument to close() method of class DAOUtility !!!";

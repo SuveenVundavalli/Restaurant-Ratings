@@ -1,4 +1,4 @@
-package com.ts.us.dao;
+package com.ts.us.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import com.ts.us.dao.IBranchDAO;
 import com.ts.us.dto.Branch;
 import com.ts.us.exception.UrbanspoonException;
 
-public class BranchDAO {
+@Component
+public class BranchDAO implements IBranchDAO{
 
 	public boolean addImage(long branchId, String fileName) throws UrbanspoonException {
 
