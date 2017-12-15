@@ -12,7 +12,7 @@
 	
 		<!-- Spring form starts here -->
 		<div class="container vertical-center">
-			<div class="col-md-6">
+			<div class="col-md-6 col-sm-12">
 				<div class="well">
 				<h2 class="text-center">Sign Up</h2>
 				<hr />

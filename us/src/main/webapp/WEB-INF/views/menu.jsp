@@ -27,7 +27,7 @@
 					<li class="divider"></li>
 					<li><a href="getSignUpRestaurant"><i class="fas fa-utensils"></i> As Restaurant</a></li>
 				</ul></li>
-			<li><a href="getlogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li><a href="getLogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 		</ul>
 	</div>
 	</nav>

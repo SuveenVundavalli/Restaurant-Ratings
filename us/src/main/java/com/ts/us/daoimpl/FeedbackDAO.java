@@ -126,7 +126,7 @@ public class FeedbackDAO implements IFeedbackDAO{
 		List<Feedback> feedbacks = null;
 		try {
 			preparedStatement = connection
-					.prepareStatement("select * from feedback where branch_id=? where recipe_id is null");
+					.prepareStatement("select * from feedback where branch_id=? and recipe_id is null");
 			preparedStatement.setInt(1, branchId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {

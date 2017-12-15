@@ -72,6 +72,8 @@ public class UrbanspoonController {
 		try {
 			mv = new ModelAndView("home");
 			List<Restaurant> restaurantsList = restaurantDAO.getRestaurants(true);
+			Restaurant restaurant = restaurantDAO.getRestaurant(14, true);
+			System.out.println(restaurant);
 			mv.addObject("user", new User());
 			mv.addObject("restaurant", new Restaurant());
 			mv.addObject("restaurantsList", restaurantsList);
@@ -97,10 +99,12 @@ public class UrbanspoonController {
 			}
 		} else if (loginAs != null && loginAs.equals("restaurant")) {
 			Restaurant restaurant = restaurantDAO.getRestaurant(user_id, false);
+			System.out.println(restaurant);
 			if (restaurant != null && restaurant.getPassword().equals(password)) {
 				session.setAttribute("loggedInUser", restaurant);
 				session.setAttribute("loggedInUserId", restaurant.getId());
 				mv = new ModelAndView("restaurantHome");
+				mv.addObject("restaurant", restaurant);
 				mv.addObject("branch", new Branch());
 				mv = addRestaurantObjects(mv, request);
 			}
@@ -186,7 +190,6 @@ public class UrbanspoonController {
 			} catch (UrbanspoonException e) {
 				e.printStackTrace();
 			}
-
 			mv.addObject("feedback", new Feedback());
 		} else {
 			mv = new ModelAndView("home");

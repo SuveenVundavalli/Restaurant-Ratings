@@ -14,7 +14,7 @@ import com.ts.us.dao.IRestaurantDAO;
 import com.ts.us.dto.Restaurant;
 import com.ts.us.exception.UrbanspoonException;
 
-@Component
+//@Component
 public class RestaurantDAO implements IRestaurantDAO{
 
 	public List<Restaurant> getRestaurants(boolean includeBranches) throws UrbanspoonException {

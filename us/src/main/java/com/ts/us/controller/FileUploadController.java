@@ -49,10 +49,10 @@ public class FileUploadController {
 		}
 		return mv;
 	}
-	@PostMapping("/branch_spring")
+	@PostMapping("/branchSpring")
 	public ModelAndView addBranches(@RequestParam("location") String location, @RequestParam("city") String city,
 			@RequestParam("state") String state, @RequestParam("country") String country,
-			@RequestParam("postalCode") int postalCode, @RequestParam("branch_images") CommonsMultipartFile[] files,
+			@RequestParam("postalCode") int postalCode, @RequestParam("branchImages") CommonsMultipartFile[] files,
 			HttpServletRequest request) throws UrbanspoonException {
 		HttpSession session = request.getSession(false);
 		ModelAndView mv = null;

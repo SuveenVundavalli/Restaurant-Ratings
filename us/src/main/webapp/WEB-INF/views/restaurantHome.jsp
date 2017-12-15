@@ -13,8 +13,7 @@
 <body>
 
 	<h4>Branch</h4>
-	<form action="branch" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="action" value="branch"> 
+	<form action="branchSpring" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td><label>Location</label></td>
@@ -39,12 +38,12 @@
 			<tr>
 				<td><label>Postal Code</label> </td>
 				<td>:</td>
-				<td><input type="text" name="postal_code"></td>
+				<td><input type="text" name="postalCode"></td>
 			</tr>
 			<tr>
 				<td><label>Branch Images</label> </td>
 				<td>:</td>
-				<td><input type="file" name="branch_images" multiple="multiple"></td>
+				<td><input type="file" name="branchImages" multiple="multiple"></td>
 			</tr>
 			<tr>
 				<td></td>
