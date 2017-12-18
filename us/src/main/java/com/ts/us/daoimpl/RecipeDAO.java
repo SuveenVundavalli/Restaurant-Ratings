@@ -13,7 +13,7 @@ import com.ts.us.dao.IRecipeDAO;
 import com.ts.us.dto.Recipe;
 import com.ts.us.exception.UrbanspoonException;
 
-@Component
+//@Component
 public class RecipeDAO implements IRecipeDAO{
 
 	public Recipe insert(int cuisineId, Recipe recipe) throws UrbanspoonException {

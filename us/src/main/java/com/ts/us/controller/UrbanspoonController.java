@@ -21,20 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ts.us.dao.IBranchDAO;
 import com.ts.us.dao.ICuisineDAO;
 import com.ts.us.dao.IFeedbackDAO;
 import com.ts.us.dao.IFeedbackTypeDAO;
-import com.ts.us.dao.IRecipeDAO;
-import com.ts.us.dao.IRestaurantDAO;
 import com.ts.us.dao.IUserDAO;
-import com.ts.us.daoimpl.BranchDAO;
-import com.ts.us.daoimpl.CuisineDAO;
-import com.ts.us.daoimpl.FeedbackDAO;
-import com.ts.us.daoimpl.FeedbackTypeDAO;
-import com.ts.us.daoimpl.RecipeDAO;
-import com.ts.us.daoimpl.RestaurantDAO;
-import com.ts.us.daoimpl.UserDAO;
 import com.ts.us.dto.Branch;
 import com.ts.us.dto.Cuisine;
 import com.ts.us.dto.Feedback;
@@ -44,6 +34,9 @@ import com.ts.us.dto.Restaurant;
 import com.ts.us.dto.User;
 import com.ts.us.exception.UrbanspoonException;
 import com.ts.us.helper.UrbanspoonHelper;
+import com.ts.us.service.BranchService;
+import com.ts.us.service.RecipeService;
+import com.ts.us.service.RestaurantService;
 import com.ts.us.util.DateUtility;
 
 @Controller
@@ -52,7 +45,7 @@ public class UrbanspoonController {
 	private static final String IMAGESLOCATION = "//Users//suveen//Documents//EclipseWorkspace//Restaurant-Ratings//us//src//main//webapp//resources//images";
 
 	@Autowired
-	private IBranchDAO branchDAO;
+	private BranchService branchService;
 	@Autowired
 	private ICuisineDAO cuisineDAO;
 	@Autowired
@@ -60,9 +53,9 @@ public class UrbanspoonController {
 	@Autowired
 	private IFeedbackTypeDAO feedbackTypeDAO;
 	@Autowired
-	private IRecipeDAO recipeDAO;
+	private RecipeService recipeService;
 	@Autowired
-	private IRestaurantDAO restaurantDAO;
+	private RestaurantService restaurantService;
 	@Autowired
 	private IUserDAO userDAO;
 
@@ -71,9 +64,9 @@ public class UrbanspoonController {
 		ModelAndView mv = null;
 		try {
 			mv = new ModelAndView("home");
-			List<Restaurant> restaurantsList = restaurantDAO.getRestaurants(true);
-			Restaurant restaurant = restaurantDAO.getRestaurant(14, true);
-			System.out.println(restaurant);
+			List<Restaurant> restaurantsList = restaurantService.getRestaurants(true);
+			//Restaurant restaurant = restaurantService.getRestaurant(14, true);
+			//System.out.println(restaurant);
 			mv.addObject("user", new User());
 			mv.addObject("restaurant", new Restaurant());
 			mv.addObject("restaurantsList", restaurantsList);
@@ -94,15 +87,17 @@ public class UrbanspoonController {
 			if (user != null && user.getPassword().equals(password)) {
 				session.setAttribute("loggedInUser", user);
 				session.setAttribute("loggedInUserId", user.getId());
+				session.setAttribute("loggedInAs", "user");
 				mv = new ModelAndView("userHome");
-				mv.addObject("restaurantsList", restaurantDAO.getRestaurants(true));
+				mv.addObject("restaurantsList", restaurantService.getRestaurants(true));
 			}
 		} else if (loginAs != null && loginAs.equals("restaurant")) {
-			Restaurant restaurant = restaurantDAO.getRestaurant(user_id, false);
+			Restaurant restaurant = restaurantService.getRestaurant(user_id, false);
 			System.out.println(restaurant);
 			if (restaurant != null && restaurant.getPassword().equals(password)) {
 				session.setAttribute("loggedInUser", restaurant);
 				session.setAttribute("loggedInUserId", restaurant.getId());
+				session.setAttribute("loggedInAs", "restaurant");
 				mv = new ModelAndView("restaurantHome");
 				mv.addObject("restaurant", restaurant);
 				mv.addObject("branch", new Branch());
@@ -110,7 +105,7 @@ public class UrbanspoonController {
 			}
 		} else {
 			mv = new ModelAndView("home");
-			List<Restaurant> restaurantsList = restaurantDAO.getRestaurants(true);
+			List<Restaurant> restaurantsList = restaurantService.getRestaurants(true);
 			mv.addObject("restaurantsList", restaurantsList);
 		}
 
@@ -158,12 +153,12 @@ public class UrbanspoonController {
 				}
 			}
 		}
-		restaurant = restaurantDAO.insert(restaurant);
+		restaurant = restaurantService.insert(restaurant);
 		if (restaurant.getId() != 0) {
 			for (FileItem fileItem : fileItemsList) {
 				if (!fileItem.isFormField()) {
 					storeImage(fileItem, "restaurants", restaurant.getId() + ".jpg");
-					restaurantDAO.updateLogoAddress(restaurant.getId(), restaurant.getId() + ".jpg");
+					restaurantService.updateLogoAddress(restaurant.getId(), restaurant.getId() + ".jpg");
 				}
 			}
 		}
@@ -184,8 +179,8 @@ public class UrbanspoonController {
 		if (loggedInUserId != 0) {
 			mv = new ModelAndView("userHome");
 			try {
-				mv.addObject("branch", branchDAO.getBranch(branchId, false));
-				mv.addObject("restaurant", restaurantDAO.getRestaurant(restaurantId, false));
+				mv.addObject("branch", branchService.getBranch(branchId, false));
+				mv.addObject("restaurant", restaurantService.getRestaurant(restaurantId, false));
 				mv.addObject("feedbackTypeList", feedbackTypeDAO.getFeedbackTypes());
 			} catch (UrbanspoonException e) {
 				e.printStackTrace();
@@ -196,7 +191,7 @@ public class UrbanspoonController {
 			List<Restaurant> restaurantsList = null;
 
 			try {
-				restaurantsList = restaurantDAO.getRestaurants(true);
+				restaurantsList = restaurantService.getRestaurants(true);
 				mv.addObject("user", new User());
 				mv.addObject("restaurantsList", restaurantsList);
 			} catch (UrbanspoonException e) {
@@ -228,7 +223,7 @@ public class UrbanspoonController {
 		feedback.setVisitedDate(DateUtility.convertStringToDate(requestParams.get("visited_Date")));
 		feedback.setFeedbackDate(new Date());
 		feedback = feedbackDAO.insertBranchFeedback(feedback);
-		mv.addObject("restaurantsList", restaurantDAO.getRestaurants(true));
+		mv.addObject("restaurantsList", restaurantService.getRestaurants(true));
 		return mv;
 	}
 
@@ -238,9 +233,9 @@ public class UrbanspoonController {
 			@RequestParam("branch_id") int branchId, @RequestParam("restaurant_id") int restaurantId)
 			throws UrbanspoonException {
 		ModelAndView mv = new ModelAndView("userHome");
-		mv.addObject("restaurant", restaurantDAO.getRestaurant(restaurantId, false));
-		mv.addObject("branch", branchDAO.getBranch(branchId, false));
-		mv.addObject("recipe", recipeDAO.getRecipe(recipeId));
+		mv.addObject("restaurant", restaurantService.getRestaurant(restaurantId, false));
+		mv.addObject("branch", branchService.getBranch(branchId, false));
+		mv.addObject("recipe", recipeService.getRecipe(recipeId));
 		return mv;
 	}
 
@@ -266,7 +261,7 @@ public class UrbanspoonController {
 		feedback.setVisitedDate(DateUtility.convertStringToDate(reqParams.get("visited_Date")));
 		feedback.setFeedbackDate(new Date());
 		feedback = feedbackDAO.insertRecipeFeedback(feedback);
-		mv.addObject("restaurantsList", restaurantDAO.getRestaurants(true));
+		mv.addObject("restaurantsList", restaurantService.getRestaurants(true));
 		return mv;
 	}
 
@@ -296,14 +291,14 @@ public class UrbanspoonController {
 			}
 		}
 		System.out.println(branch);
-		branch = branchDAO.insert(getLoggedUserId(request), branch);
+		branch = branchService.insert(getLoggedUserId(request), branch);
 		if (branch.getId() != 0) {
 			int count = 0;
 			for (FileItem fileItem : fileItemsList) {
 				if (!fileItem.isFormField()) {
 					++count;
 					storeImage(fileItem, "branches", branch.getId() + "_" + count + ".jpg");
-					branchDAO.addImage(branch.getId(), branch.getId() + "_" + count + ".jpg");
+					branchService.addImage(branch.getId(), branch.getId() + "_" + count + ".jpg");
 				}
 			}
 		}
@@ -336,7 +331,7 @@ public class UrbanspoonController {
 			recipe.setVeg(false);
 		}
 		int cuisineId = Integer.parseInt(requestParams.get("cuisine_id"));
-		recipe = recipeDAO.insert(cuisineId, recipe);
+		recipe = recipeService.insert(cuisineId, recipe);
 		ModelAndView mv = new ModelAndView("restaurantHome");
 		mv = addRestaurantObjects(mv, request);
 		return mv;
@@ -370,7 +365,7 @@ public class UrbanspoonController {
 			}
 		}
 
-		recipeDAO.addRecipeToBranch(recipeId, branchId, price, imagePath);
+		recipeService.addRecipeToBranch(recipeId, branchId, price, imagePath);
 		ModelAndView mv = new ModelAndView("restaurantHome");
 		mv = addRestaurantObjects(mv, request);
 		return mv;
@@ -420,8 +415,8 @@ public class UrbanspoonController {
 
 	private ModelAndView addRestaurantObjects(ModelAndView mv, HttpServletRequest request) throws UrbanspoonException {
 		mv.addObject("cuisineList", cuisineDAO.getCuisines(false));
-		mv.addObject("branchList", branchDAO.getBranches(getLoggedUserId(request), true, true));
-		mv.addObject("recipeList", recipeDAO.getRecipes());
+		mv.addObject("branchList", branchService.getBranches(getLoggedUserId(request), true, true));
+		mv.addObject("recipeList", recipeService.getRecipes());
 		return mv;
 	}
 }

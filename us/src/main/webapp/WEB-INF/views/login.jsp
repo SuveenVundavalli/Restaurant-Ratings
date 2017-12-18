@@ -9,7 +9,7 @@
 <body class="bodyCenter">
 		
 	<div class="container vertical-center">
-		<div class="col-md-6 col-sm-12">
+		<div class="col-md-6 col-sm-12 col-xs-12">
 			<div class="well">
 				<form action="login" method="post">
 					<div class="form-group">

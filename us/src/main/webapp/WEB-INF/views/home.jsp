@@ -25,7 +25,11 @@
 		<div class="header">
 			<jsp:include page="menu.jsp"></jsp:include>
 		</div>
-
+		
+		<c:if test="${loggedInAs == 'restaurant' }">
+			<jsp:include page="restaurant/restaurantMenu.jsp"></jsp:include>
+		</c:if>
+		
 		<!-- Restaurants -->
 		<c:if test="${isUserAtHomePage}">
 			<jsp:include page="restaurants.jsp"></jsp:include>

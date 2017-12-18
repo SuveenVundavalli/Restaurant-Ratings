@@ -52,9 +52,9 @@
 			</tr>
 		</table>
 	</form>
-	<br>
+	<%-- <br>
 	<h4>Branch Using Spring</h4>
-	<form action="branch_spring" method="post" enctype="multipart/form-data">
+	<form action="branchSpring" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="branch"> 
 		<table>
 			<tr>
@@ -85,7 +85,7 @@
 			<tr>
 				<td><label>Branch Images</label> </td>
 				<td>:</td>
-				<td><input type="file" name="branch_images" multiple="multiple"></td>
+				<td><input type="file" name="branchImages" multiple="multiple"></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -93,7 +93,7 @@
 				<td><input type="submit" value="ADD BRANCH"></td>
 			</tr>
 		</table>
-	</form>
+	</form> --%>
 	<br />
 	<h4>Cuisine</h4>
 	<form action="cuisine" method="post">
