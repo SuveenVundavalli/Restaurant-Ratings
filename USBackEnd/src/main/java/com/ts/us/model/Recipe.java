@@ -60,11 +60,11 @@ public class Recipe {
 		this.description = description;
 	}
 
-	public boolean isVeg() {
+	public boolean getIsVeg() {
 		return isVeg;
 	}
 
-	public void setVeg(boolean isVeg) {
+	public void setIsVeg(boolean isVeg) {
 		this.isVeg = isVeg;
 	}
 

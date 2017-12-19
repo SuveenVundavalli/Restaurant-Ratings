@@ -65,8 +65,8 @@ public class UrbanspoonController {
 		try {
 			mv = new ModelAndView("home");
 			List<Restaurant> restaurantsList = restaurantService.getRestaurants(true);
-			//Restaurant restaurant = restaurantService.getRestaurant(14, true);
-			//System.out.println(restaurant);
+			// Restaurant restaurant = restaurantService.getRestaurant(14, true);
+			// System.out.println(restaurant);
 			mv.addObject("user", new User());
 			mv.addObject("restaurant", new Restaurant());
 			mv.addObject("restaurantsList", restaurantsList);
@@ -371,16 +371,16 @@ public class UrbanspoonController {
 		return mv;
 
 	}
-	
-	//get Login form
+
+	// get Login form
 	@RequestMapping("/getLogin")
 	public ModelAndView getLoginForm() {
 		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("isUserClickedLogin", true);
 		return mv;
 	}
-	
-	//get Signup form
+
+	// get Signup form
 	@RequestMapping("/getSignUpUser")
 	public ModelAndView getSignupUserForm() {
 		ModelAndView mv = new ModelAndView("home");
@@ -388,6 +388,7 @@ public class UrbanspoonController {
 		mv.addObject("user", new User());
 		return mv;
 	}
+
 	@RequestMapping("/getSignUpRestaurant")
 	public ModelAndView getSignupRestaurantForm() {
 		ModelAndView mv = new ModelAndView("home");

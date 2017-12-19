@@ -35,7 +35,7 @@ public class RecipeDAOTestCase {
 		recipe.setName("Chicken Pakodi");
 		recipe.setDescription("Chicken Pakodi made with vencobb chicken");
 		recipe.setCuisineId(1);
-		recipe.setVeg(false);
+		recipe.setIsVeg(false);
 		boolean flag = recipeDAO.save(recipe);
 		assertEquals("saveTestTestCase",true, flag);
 	}

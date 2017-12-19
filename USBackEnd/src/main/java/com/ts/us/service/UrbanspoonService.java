@@ -117,11 +117,23 @@ public class UrbanspoonService {
 		}
 		return branch;
 	}
+	
+	public Branch getBranch(String location, int restaurantId) {
+		return branchDAO.get(location, restaurantId);
+	}
 
 	public Restaurant getRestaurant(int restaurantId, boolean includeBranches) {
 		Restaurant restaurant = restaurantDAO.get(restaurantId);
 		if (includeBranches) {
 			restaurant.setBranches(getBranches(restaurantId, true, true, true));
+		}
+		return restaurant;
+	}
+	
+	public Restaurant getRestaurant(String govtRegistrationId, boolean includeBranches) {
+		Restaurant restaurant = restaurantDAO.get(govtRegistrationId);
+		if (includeBranches) {
+			restaurant.setBranches(getBranches(restaurant.getId(), true, true, true));
 		}
 		return restaurant;
 	}
@@ -193,7 +205,6 @@ public class UrbanspoonService {
 	public boolean addBranchImage(BranchImage branchImage) {
 		return branchImageDAO.save(branchImage);
 	}
-	
 
 }
 

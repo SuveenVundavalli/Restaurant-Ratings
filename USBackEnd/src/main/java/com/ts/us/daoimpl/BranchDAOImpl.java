@@ -74,4 +74,8 @@ public class BranchDAOImpl implements BranchDAO {
 	
 	}
 
+	public Branch get(String location, int restaurantId) {
+		return (Branch) getCurrentSession().createCriteria(Branch.class).add(Restrictions.eq("location", location)).add(Restrictions.eq("restaurantId", restaurantId)).uniqueResult();
+	}
+
 }
